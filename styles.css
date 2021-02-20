@@ -1,0 +1,34 @@
+table, tr,td{
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+table{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+td{
+  height: 100px;
+  text-align: center;
+}
+.output{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+img{
+  /* opacity: .4; */
+  height: 90px;
+  width: 90px;
+
+}
+.clicked .monkey-sit{
+  /* opacity: 1; */
+  visibility: visible;
+}
+.monkey-sit,.monkey-walk{
+  visibility: hidden;
+}
+.walk-path .monkey-walk{
+  visibility: visible;
+}
