@@ -11,7 +11,6 @@ function createPic(){
 function createPic2(){
   img = document.createElement('img');
   img.classList.add('monkey-walk');
-  //img.src = './images/monkeyWalking1.png';
   img.alt = 'monkey';
   return img;
 }
@@ -59,18 +58,27 @@ function walk(currentx,currenty,newx,newy){
   if(currentx != newx){
     //if currentx is to the left of desired position
     if(currentx<newx){
+      //get id of next position
       var newId = (parseInt(currentx)+1)+'-'+currenty;
+      //get id of current position
       var oldId = currentx+'-'+currenty;
-      console.log('newId = '+newId);
+      //set which picture to use for movement
       chooseStep(parseInt(currentx));
+      //remove the class for showing the walking monkey on old postion
       $('#'+oldId).removeClass('walk-path');
+      //add the class for showing the walking monkey on the new position
       $('#'+newId).addClass('walk-path');
+      //if new x postion == desired x postion...
       if(parseInt(currentx)+1==newx){
+        //set desired postion as the last clicked postion
         lastClicked = newx+'-'+newy;
         console.log('Found my new X location! '+currentx)
+        //call this function again after 1 second with new postion as current postion and keeping desired postion the same.
         setTimeout(function(){walk((parseInt(currentx)+1),currenty,newx,newy)},1000);
       }
+      //else the new x postion has not yet reached the desired x position
       else{
+        //call this function again after 1 second with new postion as current postion and keeping desired postion the same.
         setTimeout(function(){walk((parseInt(currentx)+1),currenty,newx,newy)},1000);
       }
     }

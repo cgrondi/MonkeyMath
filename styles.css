@@ -1,3 +1,13 @@
+html {
+    overflow: hidden;
+    height: 100%;
+}
+body{
+  background-image: url('./images/myForest.png');
+  background-size: 100% 100%;
+  overflow: auto;
+   height: 100%;
+}
 table, tr,td{
   border-collapse: collapse;
   border: 3px dashed #228b22;
@@ -6,6 +16,7 @@ table{
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+  height: 100vh;
 }
 td{
   height: 100px;
