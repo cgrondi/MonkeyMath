@@ -11,7 +11,7 @@ function createPic(){
 function createPic2(){
   img = document.createElement('img');
   img.classList.add('monkey-walk');
-  img.src = './images/monkeyWalking1.png';
+  //img.src = './images/monkeyWalking1.png';
   img.alt = 'monkey';
   return img;
 }
@@ -24,27 +24,45 @@ function setUpGame(x,y){
     for(var ii=x;ii>0;ii--){
       td = document.createElement('td');
       tr.prepend(td);
-      console.log('cell '+ii+' added');
       td.id=(ii)+'-'+(y);
       td.classList.add('square');
       td.append(createPic());
       td.append(createPic2());
     }
     $('.testTable').append(tr);
-    console.log('row '+y+' added');
   }
 };
 setUpGame(6,6);
+
+function chooseStep(i){
+  console.log('i= '+i);
+  if(i%2==0){
+    console.log('Walk2');
+    //$('.monkey-walk').src = './images/monkeyWalking2.png';
+    $('.monkey-walk').attr("src", "./images/monkeyWalking2.png");
+  }
+  else if(i%2==1){
+    console.log('Walk1');
+    //$('.monkey-walk').src = './images/monkeyWalking1.png';
+    $('.monkey-walk').attr("src", "./images/monkeyWalking1.png");
+  }
+  else{
+    console.log('ERROR: chooseStep, number neither even nor odd')
+  }
+}
 
 
 
 function walk(currentx,currenty,newx,newy){
   $('#'+currentx+'-'+currenty).removeClass('clicked');
+  //if currentx != desired position
   if(currentx != newx){
+    //if currentx is to the left of desired position
     if(currentx<newx){
       var newId = (parseInt(currentx)+1)+'-'+currenty;
       var oldId = currentx+'-'+currenty;
       console.log('newId = '+newId);
+      chooseStep(parseInt(currentx));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currentx)+1==newx){
@@ -56,10 +74,12 @@ function walk(currentx,currenty,newx,newy){
         setTimeout(function(){walk((parseInt(currentx)+1),currenty,newx,newy)},1000);
       }
     }
+    //if currentx is to the right of desired postion
     else{
       var newId = (parseInt(currentx)-1)+'-'+currenty;
       var oldId = currentx+'-'+currenty;
       console.log('newId = '+newId);
+      chooseStep(parseInt(currentx));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currentx)-1==newx){
@@ -72,11 +92,14 @@ function walk(currentx,currenty,newx,newy){
       }
     }
   }
+  //if currenty != desired postion
   else if (currenty != newy) {
+    //if currenty is to the left of desired position
     if(currenty<newy){
       var newId = currentx+'-'+(parseInt(currenty)+1);
       var oldId = currentx+'-'+currenty;
       console.log('newId = '+newId);
+      chooseStep(parseInt(currenty));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currenty)+1==newy){
@@ -88,10 +111,12 @@ function walk(currentx,currenty,newx,newy){
         setTimeout(function(){walk(currentx,parseInt(currenty)+1,newx,newy)},1000);
       }
     }
+    //if currenty is to the right of desired position
     else{
       var newId = currentx+'-'+(parseInt(currenty)-1);
       var oldId = currentx+'-'+currenty;
       console.log('newId = '+newId);
+      chooseStep(parseInt(currenty));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currenty)-1==newy){
@@ -104,17 +129,13 @@ function walk(currentx,currenty,newx,newy){
       }
     }
   }
+  //if current postion is desired position
   else{
     $('#'+currentx+'-'+currenty).removeClass('walk-path');
     $('#'+currentx+'-'+currenty).addClass('clicked');
     console.log('At my spot!');
     canClick = true;
   }
-  // else if (currentx === newx && currenty ===newy) {
-  //
-  // }
-
-
 }
 function handleClick(newId){
   var currentx = lastClicked[0];

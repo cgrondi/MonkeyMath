@@ -1,6 +1,6 @@
 table, tr,td{
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 3px dashed #228b22;
 }
 table{
   margin-left: auto;
