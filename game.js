@@ -3,6 +3,7 @@ var canClick = true;
 var boardX = 6;
 var boardY = 6;
 var bananaLocations = [];
+var score = 0;
 
 function createPic(){
   img = document.createElement('img');
@@ -83,6 +84,8 @@ function sit(){
 }
 function celebrate(){
   $('.monkey-pic').attr("src", "./images/monkeyCelebration.png");
+  score +=100;
+  $('#score-text').html(score);
   setTimeout(sit,1000);
 }
 
