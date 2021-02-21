@@ -1,19 +1,59 @@
 var lastClicked = '1-1';
 var canClick = true;
+var boardX = 6;
+var boardY = 6;
+var bananaLocations = [];
 
 function createPic(){
   img = document.createElement('img');
-  img.classList.add('monkey-sit');
-  img.src = './images/monkeySitting.png';
+  img.classList.add('monkey-pic');
+  //img.src = './images/monkeySitting.png';
   img.alt = 'monkey';
   return img;
 }
-function createPic2(){
-  img = document.createElement('img');
-  img.classList.add('monkey-walk');
-  img.alt = 'monkey';
-  return img;
+function placeBanana(){
+
+  for(var i=0;i<3;i++){
+    var num1 = Math.ceil(Math.random()*6);
+    var num2 = Math.ceil(Math.random()*6);
+    var id = num1+'-'+num2;
+    if(bananaLocations.includes(id)){
+      i--;
+    }
+    else{
+      bananaLocations.push(id);
+    }
+
+  }
+
+  for(var i = 0; i < bananaLocations.length; i++){
+    img = document.createElement('img');
+    img.classList.add('banana');
+    img.src = './images/banana.png';
+    img.alt = 'banana';
+    $('#'+bananaLocations[i]).append(img);
+    console.log('banana placed at ' + bananaLocations[i]);
+  }
 }
+
+function checkForBanana(){
+  for (var i = 0; i < bananaLocations.length; i++) {
+    if(lastClicked === bananaLocations[i]){
+      $('#'+lastClicked).children('.banana').remove();
+      var index = bananaLocations.indexOf(lastClicked)
+      if (index > -1) {
+        bananaLocations.splice(index, 1);
+      }
+      celebrate();
+      console.log('found banana!, celebrate!');
+
+    }
+    else{
+      sit();
+    }
+  }
+}
+
 
 
 function setUpGame(x,y){
@@ -26,32 +66,39 @@ function setUpGame(x,y){
       td.id=(ii)+'-'+(y);
       td.classList.add('square');
       td.append(createPic());
-      td.append(createPic2());
+      //td.append(createPic2());
     }
     $('.testTable').append(tr);
   }
+  placeBanana();
 };
-setUpGame(6,6);
+setUpGame(boardX,boardY);
+
+
+function sit(){
+  $('.monkey-pic').attr("src", "./images/monkeySitting.png");
+  if(bananaLocations.length==0){
+    placeBanana();
+  }
+}
+function celebrate(){
+  $('.monkey-pic').attr("src", "./images/monkeyCelebration.png");
+  setTimeout(sit,1000);
+}
 
 function chooseStep(i){
-  console.log('i= '+i);
+
   if(i%2==0){
-    console.log('Walk2');
-    //$('.monkey-walk').src = './images/monkeyWalking2.png';
-    $('.monkey-walk').attr("src", "./images/monkeyWalking2.png");
+
+    $('.monkey-pic').attr("src", "./images/monkeyWalking2.png");
   }
   else if(i%2==1){
-    console.log('Walk1');
-    //$('.monkey-walk').src = './images/monkeyWalking1.png';
-    $('.monkey-walk').attr("src", "./images/monkeyWalking1.png");
+    $('.monkey-pic').attr("src", "./images/monkeyWalking1.png");
   }
   else{
     console.log('ERROR: chooseStep, number neither even nor odd')
   }
 }
-
-
-
 function walk(currentx,currenty,newx,newy){
   $('#'+currentx+'-'+currenty).removeClass('clicked');
   //if currentx != desired position
@@ -63,7 +110,7 @@ function walk(currentx,currenty,newx,newy){
       //get id of current position
       var oldId = currentx+'-'+currenty;
       //set which picture to use for movement
-      chooseStep(parseInt(currentx));
+      chooseStep(parseInt(currentx)+parseInt(currenty));
       //remove the class for showing the walking monkey on old postion
       $('#'+oldId).removeClass('walk-path');
       //add the class for showing the walking monkey on the new position
@@ -86,8 +133,7 @@ function walk(currentx,currenty,newx,newy){
     else{
       var newId = (parseInt(currentx)-1)+'-'+currenty;
       var oldId = currentx+'-'+currenty;
-      console.log('newId = '+newId);
-      chooseStep(parseInt(currentx));
+      chooseStep(parseInt(currentx)+parseInt(currenty));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currentx)-1==newx){
@@ -106,8 +152,7 @@ function walk(currentx,currenty,newx,newy){
     if(currenty<newy){
       var newId = currentx+'-'+(parseInt(currenty)+1);
       var oldId = currentx+'-'+currenty;
-      console.log('newId = '+newId);
-      chooseStep(parseInt(currenty));
+      chooseStep(parseInt(currentx)+parseInt(currenty));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currenty)+1==newy){
@@ -123,8 +168,7 @@ function walk(currentx,currenty,newx,newy){
     else{
       var newId = currentx+'-'+(parseInt(currenty)-1);
       var oldId = currentx+'-'+currenty;
-      console.log('newId = '+newId);
-      chooseStep(parseInt(currenty));
+      chooseStep(parseInt(currentx)+parseInt(currenty));
       $('#'+oldId).removeClass('walk-path');
       $('#'+newId).addClass('walk-path');
       if(parseInt(currenty)-1==newy){
@@ -141,6 +185,9 @@ function walk(currentx,currenty,newx,newy){
   else{
     $('#'+currentx+'-'+currenty).removeClass('walk-path');
     $('#'+currentx+'-'+currenty).addClass('clicked');
+    checkForBanana();
+
+    //sit();
     console.log('At my spot!');
     canClick = true;
   }
@@ -156,9 +203,7 @@ function handleClick(newId){
 
 $('.square').on('click',function(event){
   if(canClick){
-    console.log('clicked');
     canClick = false;
-    console.log('canClick: '+canClick);
     handleClick(event.currentTarget.id);
     $('.output').html(event.currentTarget.id);
   }

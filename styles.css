@@ -20,6 +20,7 @@ table{
 }
 td{
   height: 100px;
+  width: 200px;
   text-align: center;
 }
 .output{
@@ -29,17 +30,24 @@ td{
 }
 img{
   /* opacity: .4; */
-  height: 90px;
-  width: 90px;
+  height: 100px;
+  width: 100px;
 
 }
-.clicked .monkey-sit{
+.clicked .monkey-pic{
   /* opacity: 1; */
   visibility: visible;
 }
-.monkey-sit,.monkey-walk{
+.monkey-pic{
   visibility: hidden;
 }
-.walk-path .monkey-walk{
+.walk-path .monkey-pic{
   visibility: visible;
+}
+.banana{
+  height: 50px;
+  width: 50px;
+  float: right;
+  padding-top: 25px;
+  padding-right: 25px;
 }
