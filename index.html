@@ -2,17 +2,51 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Monkey</title>
+    <title>Monkey Math</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="queries.css" />
   </head>
   <body>
-    <div class="score">
-      Score: <span id="score-text">00</span>
+    <div class="infoBoard">
+      <div class="score">
+        Score: <span id="score-text">00</span>
+      </div>
+      <hr>
+      <div class="timer">
+        Timer: <span id="timer-text"></span>
+      </div>
+      <hr>
+      <div class="question">
+        What is <br>
+        <span id="question-text"></span>
+        <br> ?
+      </div>
+      <hr>
+      Settings: <br>
+      Level:
+      <select class="" name="" id="level">
+        <option value="1">Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+      </select><br>
+      Timer:
+      <select class="" name="" id="timer">
+        <option value="0">Off</option>
+        <option value="1">On</option>
+      </select><br>
+      Timer duration:
+      <select class="" name="" id="timerDuration">
+        <option value="60">60 Seconds</option>
+        <option value="45">45 Seconds</option>
+        <option value="30">30 Seconds</option>
+        <option value="15">15 Seconds</option>
+        <option value="10">10 Seconds</option>
+        <option value="5">5 Seconds</option>
+      </select>
     </div>
+
     <table class="board">
-
-
+      <!-- tr's and td's created in game.js via jQuery -->
     </table>
 
 
