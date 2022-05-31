@@ -34,13 +34,11 @@ td{
   text-align: center;
 }
 img{
-  /* opacity: .4; */
   height: 100px;
   width: 100px;
 
 }
 .clicked .monkey-pic{
-  /* opacity: 1; */
   visibility: visible;
 }
 .monkey-pic{
@@ -87,9 +85,6 @@ img{
 .question{
   text-align: center;
   font-size: 2rem;
-  /* position: absolute;
-  bottom: 40%;
-  right: 15%; */
 }
 
 .answerChoice{
@@ -100,7 +95,6 @@ img{
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 3rem;
-  /* padding: 5px; */
   height: 65%;
   width: 80%;
   padding-top: 10%;
