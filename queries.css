@@ -10,6 +10,7 @@
 }
 /* phones of width < 768 */
 @media only screen and (max-width: 767px) {
+
   table{
     table-layout: fixed;
   }
@@ -25,5 +26,22 @@
   .monkey-pic{
     height: 90px;
     width: 90px;
+  }
+  .answerChoice{
+    height: 75%;
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
 }
